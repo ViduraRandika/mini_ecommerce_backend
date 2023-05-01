@@ -17,10 +17,15 @@ const vendorSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ["admin", "vendor"],
-    defaulr: "vendor",
+    default: "vendor",
   },
   products: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Product",
+    },
+  ],
+  favorites: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Product",
