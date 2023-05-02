@@ -18,6 +18,9 @@ productRouter.post("/",userAuthorization, addNewProduct);
 productRouter.put("/:id",userAuthorization, updateProductById);
 
 // Delete product by id
-productRouter.delete("/:id",userAuthorization, deleteProductById);
+productRouter.delete("/:id", userAuthorization, deleteProductById);
+
+//Add product to favourite
+productRouter.post("/add-to-favourite",userAuthorization,)
 
 export default productRouter;

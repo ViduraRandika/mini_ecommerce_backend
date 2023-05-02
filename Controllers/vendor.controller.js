@@ -43,8 +43,9 @@ export const loginVendor = async (req, res) => {
     }
 
     const name = vendor.name;
+    const userId = vendor._id;
 
-    const user = { email, name };
+    const user = { email, name, userId };
 
     //Genarate JWT token with including created user object data.
     const token = jwt.sign(user, process.env.JWT_SECRET);

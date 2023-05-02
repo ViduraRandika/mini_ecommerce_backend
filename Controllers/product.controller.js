@@ -1,4 +1,5 @@
 import Product from "../models/product.model.js";
+import Vendor from "../models/vendor.model.js";
 
 // Get all products
 export const getAllProducts = async (req, res) => {
@@ -87,3 +88,19 @@ export const deleteProductById = async (req, res) => {
     res.status(500).send({ msg: "Server Error" });
   }
 };
+
+//Add to favourite by id
+export const addProductToFavourite = async (req, res) => {
+  try {
+    //Check if the user has already marked this product as a favorite
+    const existingFavorite = Vendor.favorites.find(
+      (f) => f.productId === productId
+    );
+  } catch (error) {
+    console.error(error.message);
+    if (error.kind === "ObjectId") {
+      return res.status(404).send({ msg: "Product not found" });
+    }
+    res.status(500).send({ msg: "Server Error" });
+  }
+}
