@@ -18,19 +18,7 @@ const vendorSchema = new mongoose.Schema({
   role: {
     type: String,
     default: "vendor",
-  },
-  products: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Product",
-    },
-  ],
-  favorites: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Product",
-    },
-  ],
+  }
 });
 
 const Vendor = mongoose.model("Vendor", vendorSchema);

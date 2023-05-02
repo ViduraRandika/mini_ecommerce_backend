@@ -31,6 +31,9 @@ const productSchema = new mongoose.Schema({
     ref: "Vendor",
     required: true,
   },
+  isFavourite: {
+    type:Boolean
+  }
 });
 
 const Product = mongoose.model("Product", productSchema);
