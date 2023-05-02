@@ -4,6 +4,7 @@ import cors from "cors";
 import morgan from "morgan";
 import dotenv from "dotenv";
 import productRouter from "./routes/product.router.js";
+import vendorRouter from "./routes/vendor.router.js";
 
 dotenv.config();
 
@@ -15,6 +16,7 @@ app.use(morgan("dev"));
 
 //import routes
 app.use("/api/products", productRouter);
+app.use("/api", vendorRouter);
 
 mongoose
   .connect(process.env.MONGODB_URI, {
