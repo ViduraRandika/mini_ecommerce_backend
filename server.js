@@ -1,6 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 import morgan from "morgan";
 import dotenv from "dotenv";
 import productRouter from "./routes/product.router.js";
@@ -10,8 +11,16 @@ dotenv.config();
 
 const app = express();
 
+// Enable cookie parsing middleware
+app.use(cookieParser());
+
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000", // set frontend origin
+    credentials: true, // allow sending cookies
+  })
+);
 app.use(morgan("dev"));
 
 //import routes

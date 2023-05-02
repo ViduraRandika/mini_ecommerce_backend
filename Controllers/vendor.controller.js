@@ -2,6 +2,7 @@ import bcrypt from "bcrypt";
 import Vendor from "../models/vendor.model.js";
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
+import { verifyToken } from "../Utils/VerifyToken.js";
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ export const registerVendor = async (req, res) => {
 };
 
 export const loginVendor = async (req, res) => {
+  console.log(req.cookies.jwt);
   const { email, password } = req.body;
   try {
     // Retrieve user from the database
@@ -51,7 +53,7 @@ export const loginVendor = async (req, res) => {
     res.cookie("jwt", token, {
       httpOnly: true,
       secure: false,
-      sameSite: "none",
+      sameSite: false,
       maxAge: 24 * 60 * 60 * 1000, // 1 day
     });
 
@@ -59,5 +61,19 @@ export const loginVendor = async (req, res) => {
   } catch (error) {
     console.error(error.message);
     res.status(500).send({ msg: "Server error" });
+  }
+};
+
+export const verifyLogin = (req, res) => {
+  try {
+    const token = req.cookies.jwt;
+    const verify = verifyToken(token);
+    if (verify) {
+      res.send(verify);
+    } else {
+      res.status(401).send({ error: "Unauthorized request" });
+    }
+  } catch (error) {
+    res.status(401).send({ error: "Unauthorized request" });
   }
 };
