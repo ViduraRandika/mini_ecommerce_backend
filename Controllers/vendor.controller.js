@@ -78,3 +78,13 @@ export const verifyLogin = (req, res) => {
     res.status(401).send({ error: "Unauthorized request" });
   }
 };
+
+export const logout = (req, res) => {
+  try {
+    res.clearCookie("jwt", { httpOnly: true });
+    res.send();
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send({ msg: "Server error" });
+  }
+}
